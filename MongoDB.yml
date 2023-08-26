@@ -1,0 +1,25 @@
+- name: Roboshop mongodb playbook
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copying mongodb repo files
+      ansible.builtin.copy:
+        src: mongodb.repo
+        dest: /etc/yum.repos.d/mongo.repo
+
+    - name: Installing mongo db service
+      ansible.builtin.yum:
+        name: mongodb-org
+        state: latest
+
+    - name: Update mongodb lisen address
+      ansible.builtin.replace:
+        path: /etc/mongod.conf
+        regexp: '127.0.0.1'
+        replace: '0.0.0.0'
+
+    - name: start nginx service
+      ansible.builtin.systemd:
+        state: restarted
+        name: mongod
+        enabled: true
