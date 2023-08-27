@@ -1,6 +1,0 @@
-- name: Roboshop frontend playbook
-  hosts: all
-  become: yes
-  roles:
-    - Frontend
-

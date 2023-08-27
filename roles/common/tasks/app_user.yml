@@ -1,0 +1,20 @@
+- name: Adding roboshop user
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Recursively remove app directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: Create a app directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+    mode: '0755'
+
+- name: download and extract the app files
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}.zip
+    dest: /app
+    remote_src: yes
