@@ -7,7 +7,7 @@
 - name: Install the latest version of RabbitMQ
   ansible.builtin.yum:
     name: rabbitmq-server
-    state: latest
+    state: installed
 
 - name: start rabbitmq service
   ansible.builtin.systemd:
