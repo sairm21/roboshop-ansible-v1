@@ -1,0 +1,20 @@
+- name: Install the 3.6 version of Python
+  ansible.builtin.yum:
+    name:
+      - python36
+      - gcc
+      - python3-devel
+    state: latest
+
+- name: Include app_user task list in play
+  ansible.builtin.import_tasks:
+    file: app_user.yml
+
+- name: Download the dependencies & build the application
+  ansible.builtin.shell: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app
+
+- name: systemd setup
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yml
