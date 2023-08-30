@@ -1,0 +1,19 @@
+- name: Install the latest version of maven
+  ansible.builtin.yum:
+    name: maven
+    state: latest
+
+- name: Include app_user task list in play
+  ansible.builtin.import_tasks:
+    file: app_user.yml
+
+- name: Download the dependencies & build the application
+  ansible.builtin.shell: cd /app ; mvn clean package ; mv target/{{ component }}-1.0.jar {{ component }}.jar
+
+- name: Include mysql schema setup
+  ansible.builtin.import_tasks:
+    file: mysql_schema_setup.yml
+
+- name: Include systemd setup
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yml
