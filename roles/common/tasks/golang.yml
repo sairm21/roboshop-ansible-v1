@@ -1,0 +1,15 @@
+- name: Install the latest version of GoLang
+  ansible.builtin.yum:
+    name: golang
+    state: installed
+
+- name: Include app_user task list in play
+  ansible.builtin.import_tasks:
+    file: app_user.yml
+
+- name: Download the dependencies & build the application
+  ansible.builtin.shell: cd /app ; go mod init dispatch ; go get ; go build
+
+- name: Include systemd setup
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yml
