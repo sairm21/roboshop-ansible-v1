@@ -14,9 +14,9 @@
 
 - name: Update redis lisen address for /etc/redis.conf and /etc/redis/redis.conf
   ansible.builtin.replace:
-    path: "{ { item } }"
-    regexp: '127.0.0.1'
-    replace: '0.0.0.0'
+    path: "{{ item }}"
+    regexp: 127.0.0.1
+    replace: 0.0.0.0
   loop:
     - /etc/redis/redis.conf
     - /etc/redis.conf
