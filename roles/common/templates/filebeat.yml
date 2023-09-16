@@ -160,6 +160,9 @@ output.logstash:
   #ssl.key: "/etc/pki/client/cert.key"
 
 # ================================= Processors =================================
+processors:
+  - drop_fields:
+      fields: ["agent.ephemeral_id", "agent.hostname", "agent.id", "agent.name", "agent.type", "agent.version"]
 #processors:
 #  - add_host_metadata:
 #      when.not.contains.tags: forwarded
