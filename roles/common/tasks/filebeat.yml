@@ -1,0 +1,21 @@
+- name: adding elastic repo files for filebeat installation
+  ansible.builtin.template:
+    src: elastic.repo
+    dest: /etc/yum.repos.d/elastic.repo
+
+- name: installing filebeat
+  ansible.builtin.yum:
+    name: filebeat
+    state: latest
+
+- name: copying custom log format file for filebeat
+  ansible.builtin.template:
+    src: filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+
+- name: start filebeat service
+  ansible.builtin.systemd:
+    state: restarted
+    name: filebeat
+    enabled: true
+    daemon-reload: yes
