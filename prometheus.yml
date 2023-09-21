@@ -1,0 +1,6 @@
+- name: setup roboshop prometheus
+  hosts: localhost
+  connection: local
+  become: yes
+  roles:
+    - Prometheus
